@@ -5,20 +5,17 @@ import {
     web,
     javascript,
     typescript,
-    html,
-    css,
+    java,
+    cplus,
+    csharp,
     reactjs,
-    redux,
-    tailwind,
-    nodejs,
-    mongodb,
+    aws,
+    firebase,
+    ignition,
+    python,
     git,
-    figma,
-    docker,
-    meta,
-    starbucks,
-    tesla,
-    shopify,
+    storybook,
+    markforged,
     carrent,
     jobit,
     tripguide,
@@ -41,11 +38,11 @@ import {
   
   const services = [
     {
-      title: "Web Developer",
+      title: "Responsive Web Design",
       icon: web,
     },
     {
-      title: "React Native Developer",
+      title: "React Component Developer",
       icon: mobile,
     },
     {
@@ -53,51 +50,55 @@ import {
       icon: backend,
     },
     {
-      title: "Content Creator",
+      title: "Database Management Systems",
       icon: creator,
     },
   ];
   
   const technologies = [
     {
-      name: "HTML 5",
-      icon: html,
+      name: "java",
+      icon: java,
     },
     {
-      name: "CSS 3",
-      icon: css,
+      name: "python",
+      icon: python,
     },
     {
-      name: "JavaScript",
+      name: "javaScript",
       icon: javascript,
     },
     {
-      name: "TypeScript",
+      name: "typeScript",
       icon: typescript,
     },
     {
-      name: "React JS",
+      name: "c++",
+      icon: cplus,
+    },
+    {
+      name: "c#",
+      icon: csharp,
+    },
+    {
+      name: "react JS",
       icon: reactjs,
     },
     {
-      name: "Redux Toolkit",
-      icon: redux,
+      name: "storybook JS",
+      icon: storybook,
     },
     {
-      name: "Tailwind CSS",
-      icon: tailwind,
+      name: "ignition",
+      icon: ignition,
     },
     {
-      name: "Node JS",
-      icon: nodejs,
+      name: "firebase",
+      icon: firebase,
     },
     {
-      name: "MongoDB",
-      icon: mongodb,
-    },
-    {
-      name: "Three JS",
-      icon: threejs,
+      name: "aws",
+      icon: aws,
     },
     {
       name: "git",
@@ -107,123 +108,74 @@ import {
   
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      icon: starbucks,
+      title: "React.tsx Developer",
+      company_name: "Markforged",
+      icon: markforged,
       iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      date: "June 2023 - Current",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
+        "Developing and maintaining React components in Storybook.",
         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
         "Implementing responsive design and ensuring cross-browser compatibility.",
         "Participating in code reviews and providing constructive feedback to other developers.",
       ],
     },
     {
-      title: "React Native Developer",
-      company_name: "Tesla",
-      icon: tesla,
+      title: "Ignition Developer",
+      company_name: "Markforged",
+      icon: markforged,
       iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
+      date: "Sep 2022 - May 2023",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Web Developer",
-      company_name: "Shopify",
-      icon: shopify,
-      iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      icon: meta,
-      iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Built applications for manufacturing process control operations and data collection.",
+        "Wrote queries with the application to add/update data in SQL database.",
+        "Wrote Python scripts to modify the behavior of the application.",
+        "Used responsive design practices to make the UI suitable for multiple devices.",
+        "Wrote SQL to modify tables in the database, including creating and altering tables.",
+        "Gained firsthand experience in software engineering, database management, and responsive design.",
+        "Developed proficiency in SQL and Python, which enabled me to write complex queries and scripts to modify the application's behavior.",
       ],
     },
   ];
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
-        {
-          name: "mongodb",
-          color: "green-text-gradient",
-        },
-        {
-          name: "tailwind",
-          color: "pink-text-gradient",
-        },
       ],
-      image: carrent,
+      image: "",
       source_code_link: "https://github.com/",
     },
     {
-      name: "Job IT",
-      description:
-        "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      name: "",
+      description: "",
       tags: [
         {
-          name: "react",
+          name: "",
           color: "blue-text-gradient",
         },
-        {
-          name: "restapi",
-          color: "green-text-gradient",
-        },
-        {
-          name: "scss",
-          color: "pink-text-gradient",
-        },
       ],
-      image: jobit,
+      image: "",
       source_code_link: "https://github.com/",
     },
     {
-      name: "Trip Guide",
-      description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      name: "",
+      description: "",
       tags: [
         {
-          name: "nextjs",
+          name: "",
           color: "blue-text-gradient",
         },
-        {
-          name: "supabase",
-          color: "green-text-gradient",
-        },
-        {
-          name: "css",
-          color: "pink-text-gradient",
-        },
       ],
-      image: tripguide,
+      image: "",
       source_code_link: "https://github.com/",
     },
   ];
   
-  export { services, technologies, experiences, testimonials, projects };
+  export { services, technologies, experiences, projects };
