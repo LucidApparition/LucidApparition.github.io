@@ -22,9 +22,12 @@ import storybook from "./tech/storybook.png";
 
 import markforged from "./company/markforged.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
+import portfolio from "./portfolioscreenshot.png";
+import wireframe from "./wireframe.png";
+import drinkers from "./drinkers.png";
+import componentlibrary from "./componentlibrary.png";
+
+
 
 export {
   logo,
@@ -48,7 +51,8 @@ export {
   typescript,
   storybook,
   markforged,
-  carrent,
-  jobit,
-  tripguide,
+  portfolio,
+  drinkers,
+  wireframe,
+  componentlibrary
 };

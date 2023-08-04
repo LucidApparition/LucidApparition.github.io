@@ -16,9 +16,11 @@ import {
     git,
     storybook,
     markforged,
-    carrent,
-    jobit,
-    tripguide,
+    portfolio,
+    drinkers,
+    wireframe,
+    componentlibrary,
+
   } from "../assets";
   
   export const navLinks = [
@@ -140,41 +142,69 @@ import {
   
   const projects = [
     {
-      name: "",
+      name: "This Website",
       description:
         "",
       tags: [
         {
-          name: "react",
+          name: "React",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "JavaScript",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "CSS",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "HTML",
           color: "blue-text-gradient",
         },
       ],
-      image: "",
-      source_code_link: "https://github.com/",
+      image: portfolio,
+      source_code_link: "https://github.com/LucidApparition/LucidApparition.github.io",
     },
     {
-      name: "",
-      description: "",
+      name: "DrinkersApp",
+      description: "This is a mobile app for ordering alcohol and having it be delivered to your location",
       tags: [
         {
-          name: "",
+          name: "Android Studio",
           color: "blue-text-gradient",
         },
+        {
+          name: "HTML",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "Java",
+          color: "blue-text-gradient"
+        },
       ],
-      image: "",
-      source_code_link: "https://github.com/",
+      image: wireframe,
+      source_code_link: "https://github.com/LucidApparition/DrinkersApp",
     },
     {
-      name: "",
-      description: "",
+      name: "React Component Library",
+      description: "This is my personal sandbox for creating and testing react components",
       tags: [
         {
-          name: "",
+          name: "React",
           color: "blue-text-gradient",
         },
+        {
+          name: "JavaScript",
+          color: "blue-text-gradient"
+        },
+        {
+          name: "TypeScript",
+          color: "blue-text-gradient"
+        },
       ],
-      image: "",
-      source_code_link: "https://github.com/",
+      image: componentlibrary,
+      source_code_link: "https://github.com/LucidApparition/react-typescript",
     },
   ];
   
