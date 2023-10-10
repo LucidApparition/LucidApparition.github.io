@@ -1,3 +1,4 @@
 # LucidApparition.github.io
 Personal Portfolio
-http://jeffgrafe.com/
+https://www.jeffgrafe.com/
+
