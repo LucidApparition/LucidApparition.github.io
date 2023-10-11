@@ -9,11 +9,12 @@ import Feedbacks from './Feedbacks';
 import Contact from './Contact';
 import LandingPage from './LandingPage';
 
+
 export {
   Hero,
   Navbar,
   About,
-  Tech,
+  Tech, 
   Experience,
   Works,
   Feedbacks,
