@@ -3,7 +3,7 @@ name: Deploy to Staging
 on:
   push:
     branches:
-      - staging
+      - 'staging'
 
 jobs:
   deploy_staging:
@@ -20,8 +20,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-            token: ${{secrets.GH_TOKEN}}
-            
+          token: ${{secrets.GH_TOKEN}}
+          ref: 'staging'  # Checkout the 'staging' branch
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -43,17 +44,16 @@ jobs:
         run: |
           if [ "$GITHUB_EVENT_NAME" == "push" ]; then
             if ! git log -1 --pretty=%B | grep -q 'Deploy to Staging'; then
-              git checkout -B main
               git commit -am "Auto commit after successful deployment to Staging"
               
-              # Run additional tests for the main branch
+              # Run additional tests for the staging branch
               npm test
               
-              # Only push to main if tests pass
+              # Only push to staging if tests pass
               if [ $? -eq 0 ]; then
                 git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
               else
-                echo "Tests failed. Deployment to main aborted."
+                echo "Tests failed. Deployment to staging aborted."
               fi
             fi
           fi
