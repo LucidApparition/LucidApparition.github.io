@@ -2,10 +2,8 @@ name: Deploy to Development
 
 on:
   push:
-    branches-ignore:
-      - main
-      - master
-      - staging
+    branches:
+      - 'development' # Change to your default branch
 
 jobs:
   deploy_development:
@@ -22,7 +20,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-            token: ${{secrets.GH_TOKEN}}
+          token: ${{secrets.GH_TOKEN}}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -46,7 +44,7 @@ jobs:
       - name: Deploy to Development
         if: github.event_name == 'push'
         run: |
-          if [ "$GITHUB_EVENT_NAME" == "push" ]; then
+          if [ "$GITHUB_REF" == "refs/heads/development" ]; then
             if ! git log -1 --pretty=%B | grep -q 'Deploy to Development'; then
               git checkout -B staging
               git commit -am "Auto commit after successful deployment to Development"

@@ -20,8 +20,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-            token: ${{secrets.GH_TOKEN}}
-            
+          token: ${{secrets.GH_TOKEN}}
+          
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -39,11 +39,10 @@ jobs:
       - name: Deploy to Production
         if: |
           github.event_name == 'push' &&
-          github.ref == 'refs/heads/main'
+          github.ref == 'refs/heads/master'
         run: |
           if [ "$GITHUB_EVENT_NAME" == "push" ]; then
             if ! git log -1 --pretty=%B | grep -q 'Deploy to Production'; then
-              git checkout -B main
               git commit -am "Auto commit after successful deployment to Production"
               
               # Run additional tests for the main branch
@@ -51,9 +50,9 @@ jobs:
               
               # Only push to main if tests pass
               if [ $? -eq 0 ]; then
-                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
+                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git master
               else
-                echo "Tests failed. Deployment to main aborted."
+                echo "Tests failed. Deployment to master aborted."
               fi
             fi
           fi
