@@ -9,12 +9,16 @@ on:
 
 jobs:
   deploy_development:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Debug
         run: |
+            echo "Start time: $(date)"
             echo "Debug information"
+            env
+            echo "End time: $(date)"
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
