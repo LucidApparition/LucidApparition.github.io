@@ -6,10 +6,17 @@ on:
       - main
 
 jobs:
-  deploy_staging:
+  deploy_production:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug
+        run: |
+          echo "Start time: $(date)"
+          echo "Debug information"
+          env
+          echo "End time: $(date)"
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
@@ -27,7 +34,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Staging
+      - name: Deploy to Production
         if: |
           github.event_name == 'push' &&
           github.ref == 'refs/heads/main'
@@ -42,9 +49,9 @@ jobs:
               
               # Only push to main if tests pass
               if [ $? -eq 0 ]; then
-                git push origin master
+                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
               else
-                echo "Tests failed. Deployment to master aborted."
+                echo "Tests failed. Deployment to main aborted."
               fi
             fi
           fi

@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Debug
         run: |
-            echo "Start time: $(date)"
-            echo "Debug information"
-            env
-            echo "End time: $(date)"
+          echo "Start time: $(date)"
+          echo "Debug information"
+          env
+          echo "End time: $(date)"
 
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -38,8 +38,9 @@ jobs:
 
       - name: Set Git Identity
         run: |
-            git config user.name "Jeff Grafe"
-            git config user.email "jagrafe94@gmail.com"
+          git config user.name "Jeff Grafe"
+          git config user.email "jagrafe94@gmail.com"
+
       - name: Deploy to Development
         if: github.event_name == 'push'
         run: |
@@ -47,6 +48,6 @@ jobs:
             if ! git log -1 --pretty=%B | grep -q 'Deploy to Development'; then
               git checkout -B staging
               git commit -am "Auto commit after successful deployment to Development"
-              git push origin staging
+              git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git staging
             fi
           fi

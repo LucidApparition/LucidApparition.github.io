@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug
+        run: |
+          echo "Start time: $(date)"
+          echo "Debug information"
+          env
+          echo "End time: $(date)"
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
@@ -42,7 +49,7 @@ jobs:
               
               # Only push to main if tests pass
               if [ $? -eq 0 ]; then
-                git push origin main
+                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
               else
                 echo "Tests failed. Deployment to main aborted."
               fi
