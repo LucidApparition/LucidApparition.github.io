@@ -30,7 +30,7 @@ jobs:
           github.ref != 'refs/heads/main' &&
           github.ref != 'refs/heads/master'
         run: |
-          if [ "$GITHUB_EVENT_NAME" == "push" ] && [ "$GITHUB_REF" != "refs/heads/main" ] && [ "$GITHUB_REF" != "refs/heads/master" ]; then
+          if [ "$GITHUB_EVENT_NAME" == "push" ] && [ "$GITHUB_REF" != "refs/heads/main" ] && [ "$GITHUB_REF" != "refs/heads/master" ] && ! git log -1 --pretty=%B | grep -q 'Deploy to Development'; then
             git checkout -B staging
             git commit -am "Auto commit after successful deployment to Development"
             git push origin staging
@@ -40,9 +40,9 @@ jobs:
         if: |
           github.event_name == 'push' &&
           github.ref == 'refs/heads/staging' &&
-          -z "$(git log -1 --pretty=%B | grep 'Deploy to Development')"
+          ! git log -1 --pretty=%B | grep -q 'Deploy to Development'
         run: |
-          if [ "$GITHUB_EVENT_NAME" == "push" ] && [ "$GITHUB_REF" == "refs/heads/staging" ] && -z "$(git log -1 --pretty=%B | grep 'Deploy to Development')"; then
+          if [ "$GITHUB_EVENT_NAME" == "push" ] && [ "$GITHUB_REF" == "refs/heads/staging" ] && ! git log -1 --pretty=%B | grep -q 'Deploy to Development'; then
             git checkout -B main
             git commit -am "Auto commit after successful deployment to Staging"
             git push origin main
@@ -52,9 +52,9 @@ jobs:
         if: |
           github.event_name == 'push' &&
           github.ref == 'refs/heads/main' &&
-          -z "$(git log -1 --pretty=%B | grep 'Deploy to Staging')"
+          ! git log -1 --pretty=%B | grep -q 'Deploy to Staging'
         run: |
-          if [ "$GITHUB_EVENT_NAME" == "push" ] && [ "$GITHUB_REF" == "refs/heads/main" ] && -z "$(git log -1 --pretty=%B | grep 'Deploy to Staging')"; then
+          if [ "$GITHUB_EVENT_NAME" == "push" ] && [ "$GITHUB_REF" == "refs/heads/main" ] && ! git log -1 --pretty=%B | grep -q 'Deploy to Staging'; then
             git checkout -B master
             git commit -am "Auto commit after successful deployment to Production"
             git push origin master
