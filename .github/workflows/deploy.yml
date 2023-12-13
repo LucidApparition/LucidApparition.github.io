@@ -26,7 +26,9 @@ jobs:
 
       - name: Deploy to cPanel
         run: |
-          scp -r ./build/* rvz4kg30s062@jeffgrafe.com:/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/
+          echo "$SSH_PRIVATE_KEY" > deploy_key.pem
+          chmod 600 deploy_key.pem
+          scp -o "HostKeyAlgorithms=ssh-rsa" -r -i deploy_key.pem ./build/* rvz4kg30s062@jeffgrafe.com:/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/
         env:
           NODE_ENV: production
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
