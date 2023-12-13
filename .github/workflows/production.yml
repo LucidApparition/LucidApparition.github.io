@@ -1,0 +1,50 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Staging
+        if: |
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/main'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" == "push" ]; then
+            if ! git log -1 --pretty=%B | grep -q 'Deploy to Production'; then
+              git checkout -B main
+              git commit -am "Auto commit after successful deployment to Production"
+              
+              # Run additional tests for the main branch
+              npm test
+              
+              # Only push to main if tests pass
+              if [ $? -eq 0 ]; then
+                git push origin master
+              else
+                echo "Tests failed. Deployment to master aborted."
+              fi
+            fi
+          fi
