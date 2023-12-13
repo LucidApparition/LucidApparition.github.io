@@ -26,10 +26,9 @@ jobs:
 
       - name: Deploy to cPanel
         run: |
-          # Replace the placeholders with your cPanel SSH details and repository information
           echo "$DEPLOY_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
-          scp -r -i deploy_key.pem ./build/* rvz4kg30s062@jeffgrafe.com:/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/     
+          scp -r -i deploy_key.pem -oHostKeyAlgorithms=ssh-rsa ./build/* rvz4kg30s062@jeffgrafe.com:/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/
         env:
           NODE_ENV: production
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
