@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/
+    - /bin/cp -r ./build/* $DEPLOYPATH
