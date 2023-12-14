@@ -41,7 +41,7 @@ jobs:
           branch=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
           pr_title="Auto PR: $branch"
           pr_body="Auto-generated pull request after push to $branch\n\n$(cat .github/prTemplate.md)"
-          gh pr create --base main --head $branch --title "$pr_title" --body "$pr_body"
+          gh pr create --base master --head $branch --title "$pr_title" --body "$pr_body"
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
