@@ -59,15 +59,5 @@ jobs:
 
           # You can add more conditions based on your project structure and requirements
 
-      - name: Size Label
-        uses: "pascalgn/size-label-action@v0.4.3"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
-        with:
-          sizes: >
-            {
-              "0": "XS",
-              "20": "S",
-              "50": "M",
-              "250": "Too Large"
-            }
+      - name: Size Label Workflow
+        uses: ./.github/workflows/size-label.yml
