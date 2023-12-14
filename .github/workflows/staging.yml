@@ -36,14 +36,6 @@ jobs:
       - name: Set up GH_TOKEN
         run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Debug Git Commands
-        run: |
-          echo "Commit Range: ${{ github.event.before }}..${{ github.sha }}"
-          echo "Git Log:"
-          git --no-pager log ${{ github.event.before }}..${{ github.sha }}
-          changed_files=$(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "Changed Files: $changed_files"
-
       - name: Create Pull Request
         run: node .github/create-pr.js
         env:
