@@ -53,8 +53,9 @@ jobs:
               
               # Only push to staging if tests pass
               if [ $? -eq 0 ]; then
-                if [ -n "$(git status --porcelain)" ]; then
-                    git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
+                # Check for changes
+                if git diff --quiet; then
+                   git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
                 else
                   echo "No changes to commit. Deployment to staging aborted."
                 fi
