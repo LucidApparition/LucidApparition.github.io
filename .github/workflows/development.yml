@@ -47,15 +47,15 @@ jobs:
         if: github.event_name == 'push'
         run: |
           if [ "$GITHUB_REF" == "refs/heads/development" ]; then
-            if ! git log -1 --pretty=%B | grep -q 'Deploy to Development'; then
+            if ! git show-ref --verify --quiet refs/heads/staging; then
+              git checkout -b staging
+            else
               git checkout staging
-              
-              # Merge changes from development into staging
               git merge development --no-edit
-              
+          
               # Check if there are changes before pushing to the next branch
               if git diff --quiet; then
-                  echo "No changes to commit. Deployment to staging aborted."
+                echo "No changes to commit. Deployment to staging aborted."
               else
                 git commit -am "Auto commit after successful deployment to Development"
                 git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git staging
