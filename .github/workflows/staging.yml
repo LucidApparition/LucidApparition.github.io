@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{secrets.GH_TOKEN}}
-          ref: 'staging'  # Checkout the 'staging' branch
+          ref: 'staging'
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
