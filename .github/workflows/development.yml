@@ -49,13 +49,13 @@ jobs:
               git config user.name "Jeff Grafe"
               git config user.email "jagrafe94@gmail.com"
               git checkout -B staging
-              
-              # Check if there are changes before pushing to next branch
-              if [ -n "$(git status --porcelain)" ]; then
+    
+              # Check if there are changes before pushing to the next branch
+              if git diff --quiet; then
+                  echo "No changes to commit. Deployment to staging aborted."
+              else
                 git commit -am "Auto commit after successful deployment to Development"
                 git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git staging
-              else
-                echo "No changes to commit. Deployment to staging aborted."
-              fi           
+              fi
             fi
           fi
