@@ -37,7 +37,7 @@ jobs:
         run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
 
       - name: Create Pull Request
-        run: node .github/create-pr.js
+        run: node create-pr.js
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
