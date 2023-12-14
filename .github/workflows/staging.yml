@@ -20,7 +20,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
         with:
-          token: ${{secrets.GH_TOKEN}}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -39,16 +39,13 @@ jobs:
       - name: Debug Git Commands
         run: |
           echo "Commit Range: ${{ github.event.before }}..${{ github.sha }}"
+          echo "Git Log:"
           git --no-pager log ${{ github.event.before }}..${{ github.sha }}
           changed_files=$(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }})
           echo "Changed Files: $changed_files"
 
       - name: Create Pull Request
-        run: |
-          branch=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
-          pr_title="Auto PR: $branch"
-          pr_body="Auto-generated pull request after push to $branch\n\n$(cat .github/prTemplate.md)"
-          gh pr create --base master --head $branch --title "$pr_title" --body "$pr_body"
+        run: node .github/create-pr.js
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
