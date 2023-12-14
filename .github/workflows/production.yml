@@ -43,6 +43,8 @@ jobs:
         run: |
           if [ "$GITHUB_EVENT_NAME" == "push" ]; then
             if ! git log -1 --pretty=%B | grep -q 'Deploy to Production'; then
+              git config user.name "Jeff Grafe"
+              git config user.email "jagrafe94@gmail.com"
               git commit -am "Auto commit after successful deployment to Production"
               
               # Run additional tests for the main branch
