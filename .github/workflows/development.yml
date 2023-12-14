@@ -43,6 +43,9 @@ jobs:
           git config user.name "Jeff Grafe"
           git config user.email "jagrafe94@gmail.com"
 
+      - name: Check Git Status
+        run: git status
+
       - name: Deploy to Development
         if: github.event_name == 'push'
         run: |
