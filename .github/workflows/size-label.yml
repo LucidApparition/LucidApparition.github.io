@@ -11,7 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
       - name: Size Label
         uses: "pascalgn/size-label-action@v0.4.2"
         env:

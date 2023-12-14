@@ -58,6 +58,3 @@ jobs:
           fi
 
           # You can add more conditions based on your project structure and requirements
-
-      - name: Size Label Workflow
-        uses: ./size-label.yml
