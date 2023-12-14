@@ -43,7 +43,7 @@ jobs:
 
       - name: Check for specific conditions and label accordingly
         run: |
-          changed_files=$(git --no-pager diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          changed_files=$(git --no-pager diff --name-only ${{ github.sha }})
 
           # Example: If the PR modifies a file in the "docs" folder, add a "Documentation" label
           if echo "$changed_files" | grep -q '^docs/'; then
