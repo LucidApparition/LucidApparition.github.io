@@ -1,16 +1,29 @@
 import { Octokit } from '@octokit/rest';
+import fs from 'fs';
+import { execSync } from 'child_process';
 
 const octokit = new Octokit({
   auth: process.env.GH_TOKEN,
 });
 
+// Get repository owner and name from Git configuration
+const repoOwner = execSync('git config --get remote.origin.url')
+  .toString()
+  .match(/github\.com[:/](.*?)\.git/)[1]
+  .split('/')[0];
+const repoName = execSync('git config --get remote.origin.url')
+  .toString()
+  .match(/github\.com[:/](.*?)\.git/)[1]
+  .split('/')[1];
+
 const branch = process.env.GITHUB_REF.replace('refs/heads/', '');
 const prTitle = `Auto PR: ${branch}`;
-const prBody = `Auto-generated pull request after push to ${branch}\n\n${cat .github/prTemplate.md}`;
+const prTemplatePath = '.github/prTemplate.md';
+const prBody = `Auto-generated pull request after push to ${branch}\n\n${fs.readFileSync(prTemplatePath, 'utf-8')}`;
 
 octokit.pulls.create({
-  owner: 'your-username',
-  repo: 'your-repo',
+  owner: repoOwner,
+  repo: repoName,
   title: prTitle,
   head: branch,
   base: 'master',
