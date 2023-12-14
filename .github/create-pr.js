@@ -24,16 +24,24 @@ const repoUrl = execSync('git config --get remote.origin.url').toString().trim()
 const repoOwner = repoUrl.match(/github\.com[:/](.*?)\.git/)[1].split('/')[0];
 const repoName = repoUrl.match(/github\.com[:/](.*?)\.git/)[1].split('/')[1];
 
+console.log('Repository URL:', repoUrl);
+console.log('Repository Owner:', repoOwner);
+console.log('Repository Name:', repoName);
+
 const prTitle = `Auto PR: ${branch}`;
+console.log('Pull Request Title:', prTitle);
+
 const prTemplatePath = '.github/prTemplate.md';
 const prBody = `Auto-generated pull request after push to ${branch}\n\n${fs.readFileSync(prTemplatePath, 'utf-8')}`;
+console.log('Pull Request Body:', prBody);
 
+const defaultBranch = 'master';
 octokit.pulls.create({
   owner: repoOwner,
   repo: repoName,
   title: prTitle,
   head: branch,
-  base: 'master',
+  base: defaultBranch,
   body: prBody,
 }).then(response => {
   console.log('Pull request created successfully:', response.data);
