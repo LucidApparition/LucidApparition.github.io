@@ -1,0 +1,62 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy_staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Debug
+        run: |
+          echo "Start time: $(date)"
+          echo "Debug information"
+          env
+          echo "End time: $(date)"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{secrets.GH_TOKEN}}
+          ref: 'staging'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Set Git Identity
+        run: |
+          git config user.name "Jeff Grafe"
+          git config user.email "jagrafe94@gmail.com"
+
+      - name: Deploy to Staging
+        if: |
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/staging'
+        run: |
+          if [ "$GITHUB_EVENT_NAME" == "push" ]; then
+            if ! git log -1 --pretty=%B | grep -q 'Deploy to Staging'; then
+              git merge staging --no-edit
+              
+              # Check if there are changes before pushing to the next branch
+              if git diff --quiet; then
+                 echo "No changes to commit. Deployment to main aborted."
+              else
+                git commit -am "Auto commit after successful deployment to Staging"
+                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git main
+              fi
+            fi
+          fi

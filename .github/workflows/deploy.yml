@@ -1,0 +1,33 @@
+name: Deploy with SSH
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to SSH
+        run: |
+          echo "$SSH_PRIVATE_KEY" > deploy_key
+          chmod 600 deploy_key
+          scp -r -i deploy_key ./build/* rvz4kg30s062@jeffgrafe.com:/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
