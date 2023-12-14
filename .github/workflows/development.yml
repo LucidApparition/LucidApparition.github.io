@@ -54,14 +54,16 @@ jobs:
               git checkout -b staging
             else
               git checkout staging
-              git merge development --no-edit
-          
-              # Check if there are changes before pushing to the next branch
-              if git diff --quiet; then
-                echo "No changes to commit. Deployment to staging aborted."
-              else
-                git commit -am "Auto commit after successful deployment to Development"
-                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git staging
-              fi
+            fi
+            
+            git merge development --no-edit
+            git status
+
+            # Check if there are changes before pushing to the next branch
+            if git diff --quiet; then
+              echo "No changes to commit. Deployment to staging aborted."
+            else
+              git commit -am "Auto commit after successful deployment to Development"
+              git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git staging
             fi
           fi
