@@ -21,7 +21,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{secrets.GH_TOKEN}}
-          
+          ref: 'main'  # Checkout the 'main' branch
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,23 +37,26 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Set Git Identity
+        run: |
+          git config user.name "Jeff Grafe"
+          git config user.email "jagrafe94@gmail.com"
+
       - name: Deploy to Production
         if: |
           github.event_name == 'push' &&
-          github.ref == 'refs/heads/master'
+          github.ref == 'refs/heads/main'
         run: |
           if [ "$GITHUB_EVENT_NAME" == "push" ]; then
             if ! git log -1 --pretty=%B | grep -q 'Deploy to Production'; then
-              git commit -am "Auto commit after successful deployment to Production"
+              git merge main --no-edit
               
-              # Run additional tests for the main branch
-              npm test
-              
-              # Only push to main if tests pass
-              if [ $? -eq 0 ]; then
-                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git master
+              # Check if there are changes before pushing to the next branch
+              if git diff --quiet; then
+                 echo "No changes to commit. Deployment to master aborted."
               else
-                echo "Tests failed. Deployment to master aborted."
+                git commit -am "Auto commit after successful deployment to Production"
+                git push https://$GITHUB_ACTOR:$GH_TOKEN@github.com/LucidApparition/LucidApparition.github.io.git master
               fi
             fi
           fi
