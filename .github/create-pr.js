@@ -2,8 +2,12 @@ import { Octokit } from '@octokit/rest';
 import fs from 'fs';
 import { execSync } from 'child_process';
 
+// Custom fetch implementation using node-fetch
+import fetch from 'node-fetch';
+
 const octokit = new Octokit({
   auth: process.env.GH_TOKEN,
+  request: { fetch },
 });
 
 // Get repository owner and name from Git configuration
