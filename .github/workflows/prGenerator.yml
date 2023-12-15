@@ -1,4 +1,4 @@
-name: Staging
+name: PR Generator
 
 on:
   push:
@@ -36,11 +36,6 @@ jobs:
       - name: Set up GH_TOKEN
         run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Create Pull Request
-        run: node .github/create-pr.js
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
       - name: Check for specific conditions and label accordingly
         run: |
           changed_files=$(git --no-pager diff --name-only ${{ github.sha }})
@@ -58,18 +53,18 @@ jobs:
           fi
 
           # You can add more conditions based on your project structure and requirements
+
       - name: Size Label
         uses: pascalgn/size-label-action@v0.4.2
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
         with:
-          sizes: >
-            {
-              "0": "XS",
-              "20": "S",
-              "50": "M",
-              "200": "L",
-              "800": "XL",
-              "2000": "XXL"
-            }
-     
+          commit-message: "Auto-generated pull request"
+          title: "[Auto] Pull Request"
+          body: |
+            This pull request is automatically generated based on changes pushed to the repository.
+          labels: "auto-generated"
+          branch: "auto-pull-request-branch"
