@@ -3,7 +3,7 @@ name: PR Generator
 on:
   push:
     branches:
-      - '*'
+      - "*"
 
 jobs:
   Auto-PR:
@@ -24,7 +24,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Install Dependencies
         run: npm install
@@ -55,8 +55,14 @@ jobs:
         run: |
           response=$(curl -s -X POST \
             -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+<<<<<<< HEAD
             -d '{"title": "[Auto] Pull Request", "body": "Auto-generated pull request body", "head": "development", "base": "master"}' \
             "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls")
   
+=======
+            -d '{"title": "[Auto] Pull Request", "body": "Auto-generated pull request body", "head": "auto-pr-branch", "base": "master"}' \
+            "https://api.github.com/repos/${{ github.repository }}/pulls")
+
+>>>>>>> 325b5cc9349e56ffcbce0a1c8100fbc1ad2093ad
           pr_url=$(echo "$response" | jq -r .html_url)
           echo "Pull Request created: $pr_url"

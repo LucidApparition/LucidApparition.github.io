@@ -27,8 +27,6 @@ import wireframe from "./wireframe.png";
 import drinkers from "./drinkers.png";
 import componentlibrary from "./componentlibrary.png";
 
-
-
 export {
   logo,
   backend,
@@ -54,5 +52,5 @@ export {
   portfolio,
   drinkers,
   wireframe,
-  componentlibrary
+  componentlibrary,
 };
