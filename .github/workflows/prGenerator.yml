@@ -18,7 +18,7 @@ jobs:
           echo "End time: $(date)"
 
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_TOKEN }}
 
@@ -54,17 +54,13 @@ jobs:
 
           # You can add more conditions based on your project structure and requirements
 
-      - name: Size Label
-        uses: pascalgn/size-label-action@v0.4.2
-        env:
-          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: "Auto-generated pull request"
           title: "[Auto] Pull Request"
           body: |
-            This pull request is automatically generated based on changes pushed to the repository.
+            $(cat .github/prTemplate.md)
           labels: "auto-generated"
-          branch: "auto-pull-request-branch"
+          branch: "${{ github.ref }}"
+          base: "master"
