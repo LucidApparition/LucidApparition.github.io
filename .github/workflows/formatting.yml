@@ -47,6 +47,6 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git add package.json
-          git commit -m "Format package.json [skip ci]"
+          git add .
+          git commit -m "Format code and update package.json [skip ci]"
           git push
