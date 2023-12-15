@@ -58,3 +58,18 @@ jobs:
           fi
 
           # You can add more conditions based on your project structure and requirements
+      - name: Size Label
+        uses: pascalgn/size-label-action@v0.4.2
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
+        with:
+          sizes: >
+            {
+              "0": "XS",
+              "20": "S",
+              "50": "M",
+              "200": "L",
+              "800": "XL",
+              "2000": "XXL"
+            }
+     

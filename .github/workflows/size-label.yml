@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Size Label
-        uses: "pascalgn/size-label-action@v0.4.2"
+        uses: pascalgn/size-label-action@v0.4.2
         env:
           GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
         with:
