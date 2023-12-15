@@ -36,7 +36,7 @@ jobs:
           fi
 
       - name: Run Prettier
-        run: npm run format  # Adjust the script command based on your project setup
+        run: npm run format
 
       - name: Set Committer Information
         run: |
