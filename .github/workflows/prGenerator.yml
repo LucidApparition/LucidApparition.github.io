@@ -33,9 +33,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Set up GH_TOKEN
-        run: echo "GH_TOKEN=${{ secrets.GH_TOKEN }}" >> $GITHUB_ENV
-
       - name: Check for specific conditions and label accordingly
         run: |
           changed_files=$(git --no-pager diff --name-only ${{ github.sha }})

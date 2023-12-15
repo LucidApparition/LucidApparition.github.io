@@ -33,6 +33,8 @@ jobs:
           if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
             echo "Version is already up to date. Exiting."
             exit 0
+          else
+            echo "Need to update package version"
           fi
 
       - name: Run Prettier
