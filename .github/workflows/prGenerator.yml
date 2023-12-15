@@ -16,7 +16,6 @@ jobs:
           echo "Debug information"
           env
           echo "End time: $(date)"
-
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
@@ -36,21 +35,17 @@ jobs:
       - name: Check for specific conditions and label accordingly
         run: |
           changed_files=$(git --no-pager diff --name-only ${{ github.sha }})
-
           # Example: If the PR modifies a file in the "docs" folder, add a "Documentation" label
           if echo "$changed_files" | grep -q '^docs/'; then
             echo "Adding Documentation label"
             gh pr label add -l "Documentation"
           fi
-
           # Example: If the PR modifies a file in the "frontend" folder, add a "Frontend" label
           if echo "$changed_files" | grep -q '^frontend/'; then
             echo "Adding Frontend label"
             gh pr label add -l "Frontend"
           fi
-
           # You can add more conditions based on your project structure and requirements
-
           # Additional debugging output
           echo "Changed Files: $changed_files"
           echo "GitHub Ref: ${GITHUB_REF}"
