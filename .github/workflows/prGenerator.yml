@@ -52,6 +52,7 @@ jobs:
           echo "GitHub SHA: ${GITHUB_SHA}"
 
       - name: Create Pull Request
+<<<<<<< HEAD
         run: |
           response=$(curl -s -X POST \
             -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
@@ -66,3 +67,16 @@ jobs:
 >>>>>>> 325b5cc9349e56ffcbce0a1c8100fbc1ad2093ad
           pr_url=$(echo "$response" | jq -r .html_url)
           echo "Pull Request created: $pr_url"
+=======
+        uses: peter-evans/create-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          commit-message: "Auto-generated pull request"
+          title: "[Auto] Pull Request"
+          body: |
+            $(cat .github/prTemplate.md)
+          labels: "auto-generated"
+          branch: "${{ github.ref }}"
+          base: "master"
+>>>>>>> parent of 85a4971 (Trying REST API for auto PR and updates to formatting.yml)
