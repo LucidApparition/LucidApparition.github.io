@@ -1,7 +1,6 @@
-import React from "react";
+// import React from "react";
 import { motion } from "framer-motion";
-import PropTypes from "prop-types"; // Import PropTypes
-
+import PropTypes from "prop-types";
 import { styles } from "../styles";
 import { services } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
@@ -49,14 +48,14 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
-        I'm a skilled software developer with experience in languages like Java,
+        Im a skilled software developer with experience in languages like Java,
         Python, C++, C#, Typescript, and JavaScript. <br />
         Frameworks like React, Storybook, and Ignition. <br />
         And databases like Firebase and AWS. <br />
-        I'm a quick learner and collaborate closely with clients to create
+        Im a quick learner and collaborate closely with clients to create
         efficient, scalable, and user-friendly solutions that solve real-world
         problems. <br />
-        Let's work together to bring your ideas to life!
+        Lets work together to bring your ideas to life!
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">

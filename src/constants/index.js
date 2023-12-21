@@ -17,7 +17,6 @@ import {
   storybook,
   markforged,
   portfolio,
-  drinkers,
   wireframe,
   componentlibrary,
 } from "../assets";
