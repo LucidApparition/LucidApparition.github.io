@@ -29,8 +29,14 @@ jobs:
       - name: Run Prettier
         run: npm run format
 
+      - name: Check for Changes in package.json
+        id: check_changes
+        run: |
+          git diff --exit-code --quiet package.json || echo "Changes found"
+
       - name: Check Current Version
         id: check_version
+        if: steps.check_changes.outputs.changes
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           echo "Current Version: $CURRENT_VERSION"
@@ -44,11 +50,13 @@ jobs:
           fi
 
       - name: Set Committer Information
+        if: steps.check_changes.outputs.changes
         run: |
           git config --local user.email "${{ github.actor }}@users.noreply.github.com"
           git config --local user.name "${{ github.actor }}"
 
       - name: Commit and Push Changes
+        if: steps.check_changes.outputs.changes
         run: |
           git add package.json
           git commit -m "Format and lint package.json [skip ci]"
