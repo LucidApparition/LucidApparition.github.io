@@ -1,0 +1,52 @@
+name: Formatting and Version Check
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  auto_update_version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Check Current Version
+        id: check_version
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "Current Version: $CURRENT_VERSION"
+          LATEST_VERSION=$(npm show your-package-name version)
+          echo "Latest Version: $LATEST_VERSION"
+          if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
+            echo "Version is already up to date. Exiting."
+            exit 0
+          else
+            echo "Need to update package version"
+          fi
+
+      - name: Run Prettier
+        run: npm run format
+
+      - name: Set Committer Information
+        run: |
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --local user.name "${{ github.actor }}"
+
+      - name: Commit and Push Changes
+        run: |
+          git add package.json
+          git commit -m "Format package.json [skip ci]"
+          git push
