@@ -90,7 +90,7 @@ jobs:
         run: |
 
           # Read the content of prTemplate.md file
-          pr_body=$(cat prTemplate.md)
+          pr_body=$(cat .github/prTemplate.md)
 
           # Make the API request to create a pull request
           response=$(curl -s -X POST \
