@@ -52,11 +52,55 @@ jobs:
           echo "GitHub Ref: ${GITHUB_REF}"
           echo "GitHub SHA: ${GITHUB_SHA}"
 
+      - name: Check Python and Pip Versions
+        run: |
+          python3 --version
+          pip3 --version
+      
+      - name: Install nltk
+        run: |
+          pip3 install nltk
+
+      - name: Create title with commit message
+        run: |
+          # Get latest commit message
+          commit_message=$(git log --format=%B -n 1)
+
+          # Extract important words using nltk
+          pr_title=$(python3 - << E0F
+          import nltk
+          from nltk.corpus import stopwords
+          from nltk.tokenize import word_tokenize
+
+          # Download NLTK data
+          nltk.download('punkt')
+          nltk.download('stopwords')
+
+          # Tokenize and remove stop words from the commit message
+          commit_message = "$commit_message"
+          words = word_tokenize(commit_message)
+          pr_title = [word.lower() for word in words if word.isalpha() and word.lower() not in stopwords.words('english')]
+
+          # Output pr_title
+          print(" ".join(pr_title[:5])) 
+          E0F
+          )
+
       - name: Create Pull Request
         run: |
+
+          # Read the content of prTemplate.md file
+          pr_body=$(cat prTemplate.md)
+
+          # Make the API request to create a pull request
           response=$(curl -s -X POST \
             -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-            -d '{"title": "[Auto] Pull Request", "body": "Auto-generated pull request body", "head": "development", "base": "master"}' \
+            -d "{
+              \"title\": \"$pr_title\", 
+              \"body\": \"$pr_body\", 
+              \"head\": \"development\", 
+              \"base\": \"master\"
+            }" \
             "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls")
   
           pr_url=$(echo "$response" | jq -r .html_url)

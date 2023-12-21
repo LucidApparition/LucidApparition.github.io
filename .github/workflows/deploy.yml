@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:
   deploy:
@@ -27,10 +24,14 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Deploy to SSH
-        run: |
-          echo "$SSH_PRIVATE_KEY" > deploy_key
-          chmod 600 deploy_key
-          scp -r -i deploy_key ./build/* rvz4kg30s062@jeffgrafe.com:/home/rvz4kg30s062/repositories/LucidApparitionhub.io.git/public_html/
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+      - name: Deploy to cPanel
+        uses: appleboy/scp-action@master
+        with:
+          host: jeffgrafe.com
+          username: rvz4kg30s062
+          key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            ${{ secrets.DEPLOY_KEY }}
+            -----END RSA PRIVATE KEY-----
+          source: "build/"
+          target: "/home/rvz4kg30s062/git-files"

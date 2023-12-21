@@ -23,12 +23,18 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Prettier
+        run: npm run format
+
       - name: Check Current Version
         id: check_version
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           echo "Current Version: $CURRENT_VERSION"
-          LATEST_VERSION=$(npm show your-package-name version)
+          LATEST_VERSION=$(npm show 3d_portfolio version)
           echo "Latest Version: $LATEST_VERSION"
           if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
             echo "Version is already up to date. Exiting."
@@ -36,9 +42,6 @@ jobs:
           else
             echo "Need to update package version"
           fi
-
-      - name: Run Prettier
-        run: npm run format
 
       - name: Set Committer Information
         run: |
@@ -48,5 +51,5 @@ jobs:
       - name: Commit and Push Changes
         run: |
           git add package.json
-          git commit -m "Format package.json [skip ci]"
+          git commit -m "Format and lint package.json [skip ci]"
           git push
