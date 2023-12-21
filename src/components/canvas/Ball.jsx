@@ -10,8 +10,6 @@ import {
 } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
-// ESLint is having issues recognizing react-three and geometry variables
-
 const Ball = (props) => {
   const [decal] = useTexture([props.imgUrl]);
 
