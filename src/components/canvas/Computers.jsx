@@ -4,9 +4,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
-/* eslint-disable */
-// ESLint is having issues recognizing react-three and geometry variables
-
 function Computers(isMobile) {
   const computer = useGLTF("./desktop_pc/scene.gltf");
   return (

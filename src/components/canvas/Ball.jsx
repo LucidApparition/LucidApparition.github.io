@@ -10,7 +10,6 @@ import {
 } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
-/* eslint-disable */
 // ESLint is having issues recognizing react-three and geometry variables
 
 const Ball = (props) => {
