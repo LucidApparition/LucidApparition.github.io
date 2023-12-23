@@ -33,19 +33,22 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Check for specific conditions and label accordingly
+      - name: Check For Specific Conditions and Label Accordingly
         run: |
           changed_files=$(git --no-pager diff --name-only ${{ github.sha }})
+
           # Example: If the PR modifies a file in the "docs" folder, add a "Documentation" label
           if echo "$changed_files" | grep -q '^docs/'; then
             echo "Adding Documentation label"
             gh pr label add -l "Documentation"
           fi
+
           # Example: If the PR modifies a file in the "frontend" folder, add a "Frontend" label
           if echo "$changed_files" | grep -q '^frontend/'; then
             echo "Adding Frontend label"
             gh pr label add -l "Frontend"
           fi
+
           # You can add more conditions based on your project structure and requirements
           # Additional debugging output
           echo "Changed Files: $changed_files"
@@ -61,7 +64,7 @@ jobs:
         run: |
           pip3 install nltk
 
-      - name: Create title with commit message
+      - name: Create Title With Commit Message
         run: |
           # Get latest commit message
           commit_message=$(git log --format=%B -n 1)
@@ -82,13 +85,12 @@ jobs:
           pr_title = [word.lower() for word in words if word.isalpha() and word.lower() not in stopwords.words('english')]
 
           # Output pr_title
-          print(" ".join(pr_title[:5])) 
+          print(" ".join(pr_title[:5]))
           E0F
           )
 
       - name: Create Pull Request
         run: |
-
           # Read the content of prTemplate.md file
           pr_body=$(cat .github/prTemplate.md)
 
