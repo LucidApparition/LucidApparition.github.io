@@ -85,15 +85,11 @@ jobs:
           pr_title = [word.lower() for word in words if word.isalpha() and word.lower() not in stopwords.words('english')]
 
           # Output pr_title
-          print(" ".join(pr_title[:5]))
-          E0F
-          )
-          # Set the pr_title as an output variable
-          echo "::set-output name=pr_title::$pr_title"
+          echo "PR Title: $pr_title"
 
       - name: Read PR Template
         id: read-template
-        run: echo "::set-output name=pr_template::$(cat .github/prTemplate.md)"
+        run: echo "PR_TEMPLATE=$(cat .github/prTemplate.md)" >> $GITHUB_ENV
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
