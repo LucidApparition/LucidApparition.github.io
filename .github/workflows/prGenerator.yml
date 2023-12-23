@@ -86,6 +86,8 @@ jobs:
 
           # Output pr_title
           echo "PR Title: $pr_title"
+          E0F
+          )
 
       - name: Read PR Template
         id: read-template
