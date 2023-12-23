@@ -89,15 +89,46 @@ jobs:
           E0F
           )
 
-      - name: Read PR Template
-        id: read-template
-        run: echo "PR_TEMPLATE=$(cat .github/prTemplate.md)"
-
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          commit-message: ${{ steps.read-template.outputs.pr_template }}
-          title: ${{ steps.read-template.outputs.pr_template }}
-          body: ${{ steps.read-template.outputs.pr_template }}
-          branch: update-dependencies
+        run: |
+          # Get the latest commit message
+          commit_message=$(git log --format=%B -n 1)
+
+          # Set the committer's name and email
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+          # Read the content of prTemplate.md file
+          pr_body=$(cat .github/prTemplate.md)
+
+          # Determine the target branch (default to 'development' if not available)
+          target_branch=${GITHUB_REF#refs/heads/}
+          target_branch=${target_branch:-development}
+
+          # Make the API request to create a pull request
+          response=$(curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+            -d @- \
+            "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls" <<EOF
+              {
+                "title": "$pr_title",
+                "body": "$pr_body",
+                "head": "${target_branch}",
+                "base": "master"
+              }
+          EOF
+          )
+
+          # Echo full response for debugging
+          echo "Full API Response: $response"
+
+          # Extract information from the response
+          pr_url=$(echo "$response" | jq -r .html_url)
+
+          # Echo individual pieces of information
+          echo "PR URL: $pr_url"
+          echo "PR Title: $pr_title"
+          echo "PR Body: $pr_body"
+          echo "Pull Request created: $pr_url"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
