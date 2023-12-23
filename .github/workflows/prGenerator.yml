@@ -85,7 +85,7 @@ jobs:
           pr_title = [word.lower() for word in words if word.isalpha() and word.lower() not in stopwords.words('english')]
 
           # Output pr_title
-          echo "PR Title: $pr_title"
+          print "PR Title: $pr_title"
           E0F
           )
 
