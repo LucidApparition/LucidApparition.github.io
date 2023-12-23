@@ -91,7 +91,7 @@ jobs:
 
       - name: Read PR Template
         id: read-template
-        run: echo "PR_TEMPLATE=$(cat .github/prTemplate.md)" >> $GITHUB_ENV
+        run: echo "PR_TEMPLATE=$(cat .github/prTemplate.md)"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
