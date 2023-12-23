@@ -19,6 +19,7 @@ import {
   portfolio,
   wireframe,
   componentlibrary,
+  androidstudio,
 } from '../assets';
 
 export const navLinks = [
@@ -83,6 +84,10 @@ const technologies = [
   {
     name: 'react JS',
     icon: reactjs,
+  },
+  {
+    name: 'androidstudio',
+    icon: androidstudio,
   },
   {
     name: 'storybook JS',

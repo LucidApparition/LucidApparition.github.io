@@ -19,6 +19,7 @@ import java from './tech/java.png';
 import python from './tech/python.png';
 import typescript from './tech/typescript.png';
 import storybook from './tech/storybook.png';
+import androidstudio from './tech/androidstudio.png';
 
 import markforged from './company/markforged.png';
 
@@ -48,6 +49,7 @@ export {
   python,
   typescript,
   storybook,
+  androidstudio,
   markforged,
   portfolio,
   drinkers,

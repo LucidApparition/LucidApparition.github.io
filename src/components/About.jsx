@@ -6,11 +6,6 @@ import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';
 import { SectionWrapper } from '../hoc';
 
-// CSS for the tilt effect
-const tiltStyle = {
-  transform: 'rotate(-8deg)',
-};
-
 function ServiceCard({ index, title, icon }) {
   return (
     <motion.div
@@ -24,7 +19,6 @@ function ServiceCard({ index, title, icon }) {
           speed: 450,
         }}
         className="bg-tertiary rounded-[20px] py-5 px-12 flex justify-evenly items-center flex-col h-[200px]"
-        style={tiltStyle}
       >
         <img src={icon} alt={title} className="w-16 h-16 object-contain" />
         <h3 className="text-white text-[20px] font-bold text-center">

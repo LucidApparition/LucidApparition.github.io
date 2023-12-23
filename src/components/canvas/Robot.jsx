@@ -9,7 +9,7 @@ function Robot() {
   return (
     <primitive
       object={robot.scene}
-      scale={0.03}
+      scale={0.06}
       positionY={-1}
       rotationY={-1}
     />
@@ -36,8 +36,10 @@ function RobotCanvas() {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 4}
         />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
         <Robot />
-        <pointLight position={[0, 10, 0]} intensity={5} color="#fff" />
       </Suspense>
     </Canvas>
   );
