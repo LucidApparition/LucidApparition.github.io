@@ -1,24 +1,25 @@
-// import React from "react";
-import { Tilt } from "react-tilt";
-import { motion } from "framer-motion";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React from 'react';
+import { Tilt } from 'react-tilt';
+import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
+import { styles } from '../styles';
+import { github } from '../assets';
+import { SectionWrapper } from '../hoc';
+import { projects } from '../constants';
+import { fadeIn, textVariant } from '../utils/motion';
 
-import { styles } from "../styles";
-import { github } from "../assets";
-import PropTypes from "prop-types";
-import { SectionWrapper } from "../hoc";
-import { projects } from "../constants";
-import { fadeIn, textVariant } from "../utils/motion";
-
-const ProjectCard = ({
+function ProjectCard({
   index,
   name,
   description,
   tags,
   image,
-  source_code_link,
-}) => {
+  sourceCodeLink,
+}) {
   return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
+    <motion.div variants={fadeIn('up', 'spring', index * 0.5, 0.75)}>
       <Tilt
         options={{
           max: 45,
@@ -35,8 +36,8 @@ const ProjectCard = ({
           />
           <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
             <div
-              onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 rounded-full 
+              onClick={() => window.open(sourceCodeLink, '_blank')}
+              className="black-gradient w-10 h-10 rounded-full
               flex justify-center items-center cursor-pointer"
             >
               <img
@@ -54,14 +55,15 @@ const ProjectCard = ({
         <div className="mt-4 flex flex-wrap gap-2">
           {tags.map((tag) => (
             <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-              #{tag.name}
+              #
+              {tag.name}
             </p>
           ))}
         </div>
       </Tilt>
     </motion.div>
   );
-};
+}
 
 ProjectCard.propTypes = {
   index: PropTypes.number.isRequired,
@@ -71,14 +73,13 @@ ProjectCard.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
   image: PropTypes.string.isRequired,
-  source_code_link: PropTypes.string.isRequired,
+  sourceCodeLink: PropTypes.string.isRequired,
 };
 
-
-const Works = () => {
+function Works() {
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -87,8 +88,8 @@ const Works = () => {
       </motion.div>
       <div className="w-full flex">
         <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className="mt-3 text-secondary text-[17px] 
+          variants={fadeIn('', '', 0.1, 1)}
+          className="mt-3 text-secondary text-[17px]
           max-w-3xl leading-[30px]"
         >
           Following projects showcases my skills and experience through
@@ -100,11 +101,12 @@ const Works = () => {
       </div>
       <div className="mt-20 flex flex-wrap gap-7">
         {projects.map((project, index) => (
+          // eslint-disable-next-line react/no-array-index-key, react/jsx-props-no-spreading
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}
       </div>
     </>
   );
-};
+}
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, '');

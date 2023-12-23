@@ -3,7 +3,7 @@ name: Formatting and Version Check
 on:
   push:
     branches:
-      - "*"
+      - '*'
 
 jobs:
   auto_update_version:
@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: '16'
 
       - name: Install Dependencies
         run: npm install

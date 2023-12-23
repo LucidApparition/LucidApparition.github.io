@@ -1,22 +1,22 @@
-import { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
-import CanvasLoader from "../Loader";
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+import CanvasLoader from '../Loader';
 
-const Robot = () => {
-  const robot = useGLTF("./robot/scene.gltf");
+function Robot() {
+  const robot = useGLTF('./robot/scene.gltf');
 
   return (
     <primitive
       object={robot.scene}
       scale={0.03}
-      position-y={-1}
-      rotation-y={-1}
+      positionY={-1}
+      rotationY={-1}
     />
   );
-};
+}
 
-const RobotCanvas = () => {
+function RobotCanvas() {
   return (
     <Canvas
       shadows
@@ -41,6 +41,6 @@ const RobotCanvas = () => {
       </Suspense>
     </Canvas>
   );
-};
+}
 
 export default RobotCanvas;

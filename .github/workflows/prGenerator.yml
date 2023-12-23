@@ -56,7 +56,7 @@ jobs:
         run: |
           python3 --version
           pip3 --version
-      
+
       - name: Install nltk
         run: |
           pip3 install nltk
@@ -97,6 +97,6 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
             -d "{ \"title\": \"$pr_title\", \"body\": \"$pr_body\", \"head\": \"development\", \"base\": \"master\"}" \
             "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls")
-  
+
           pr_url=$(echo "$response" | jq -r .html_url)
           echo "Pull Request created: $pr_url"
