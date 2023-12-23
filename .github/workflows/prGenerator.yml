@@ -91,29 +91,6 @@ jobs:
 
       - name: Create Pull Request
         run: |
-          /*
-          # Read the content of prTemplate.md file
-          pr_body=$(cat .github/prTemplate.md)
-
-          # Make the API request to create a pull request
-          response=$(curl -s -X POST \
-            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-            -d "{ \"title\": \"$pr_title\", \"body\": \"$pr_body\", \"head\": \"development\", \"base\": \"master\"}" \
-            "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls")
-
-            # Echo full response for debugging
-          echo "Full API Response: $response"
-
-          #Extract infromation from the response
-          pr_url=$(echo "$response" | jq -r .html_url)
-
-          # Echo individual pieces of information
-          echo "PR URL: $pr_url"
-          echo "PR Title: $pr_title"
-          echo "PR Body: $pr_body"
-          echo "Pull Request created: $pr_url"
-          */
-
           # Read the content of prTemplate.md file
           pr_body=$(cat .github/prTemplate.md)
 
