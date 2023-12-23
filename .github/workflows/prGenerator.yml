@@ -91,6 +91,7 @@ jobs:
 
       - name: Create Pull Request
         run: |
+          /*
           # Read the content of prTemplate.md file
           pr_body=$(cat .github/prTemplate.md)
 
@@ -111,3 +112,21 @@ jobs:
           echo "PR Title: $pr_title"
           echo "PR Body: $pr_body"
           echo "Pull Request created: $pr_url"
+          */
+
+          # Read the content of prTemplate.md file
+          pr_body=$(cat .github/prTemplate.md)
+
+          # Make the API request to create a pull request
+          response=$(curl -s -X POST \
+            -H "Authorization: ***" \
+            -d @- \
+            "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls" <<EOF
+          {
+            "title": "$pr_title",
+            "body": "$pr_body",
+            "head": "development",
+            "base": "master"
+          }
+          EOF
+          )
