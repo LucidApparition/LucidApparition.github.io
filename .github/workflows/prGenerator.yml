@@ -96,14 +96,26 @@ jobs:
 
           # Make the API request to create a pull request
           response=$(curl -s -X POST \
-            -H "Authorization: ***" \
+            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
             -d @- \
             "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls" <<EOF
-          {
-            "title": "$pr_title",
-            "body": "$pr_body",
-            "head": "development",
-            "base": "master"
-          }
-          EOF
-          )
+              {
+                "title": "$pr_title",
+                "body": "$pr_body",
+                "head": "development",
+                "base": "master"
+              }
+              EOF
+            )
+
+          # Echo full response for debugging
+          echo "Full API Response: $response"
+
+          # Extract information from the response
+          pr_url=$(echo "$response" | jq -r .html_url)
+
+          # Echo individual pieces of information
+          echo "PR URL: $pr_url"
+          echo "PR Title: $pr_title"
+          echo "PR Body: $pr_body"
+          echo "Pull Request created: $pr_url"
