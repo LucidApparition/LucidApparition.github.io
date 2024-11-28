@@ -21,6 +21,7 @@ import typescript from "./tech/typescript.png";
 import storybook from "./tech/storybook.png";
 
 import markforged from "./company/markforged.png";
+import allium from "./company/allium.png";
 
 import portfolio from "./portfolioscreenshot.png";
 import wireframe from "./wireframe.png";
@@ -51,6 +52,7 @@ export {
   typescript,
   storybook,
   markforged,
+  allium,
   portfolio,
   drinkers,
   wireframe,

@@ -1,14 +1,21 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom"
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom';
 
-import { About, Contact, Experience, Feedbacks, 
-  Hero, Navbar, Tech, Works, StarsCanvas } from './components';
+import {
+  About,
+  Contact,
+  Experience,
+  Hero,
+  Navbar,
+  Tech,
+  Works,
+} from './components';
 
-const App = () => {
+function App() {
   return (
     <BrowserRouter>
-      <div className="relative z-0 bg-[#7001FF]">
-        <div className="bg-hero-pattern bg-cover bg-nmo-repeat bg-center">
+      <div className="relative z-0 bg-light-bg dark:bg-dark-primary">
+        <div className="bg-cover bg-nmo-repeat bg-center">
           <Navbar />
           <Hero />
         </div>
@@ -18,11 +25,10 @@ const App = () => {
         <Works />
         <div className="relative z-0">
           <Contact />
-          <StarsCanvas />
         </div>
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

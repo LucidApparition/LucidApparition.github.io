@@ -16,8 +16,8 @@ import {
     git,
     storybook,
     markforged,
+    allium,
     portfolio,
-    drinkers,
     wireframe,
     componentlibrary,
 
@@ -40,19 +40,19 @@ import {
   
   const services = [
     {
-      title: "Responsive Web Design",
+      title: "Developing advanced industrial software solutions.",
       icon: web,
     },
     {
-      title: "React Component Developer",
+      title: "Designing user-friendly interfaces.",
       icon: mobile,
     },
     {
-      title: "Backend Developer",
+      title: "Building high-performance tools.",
       icon: backend,
     },
     {
-      title: "Database Management Systems",
+      title: "Collaborating with diverse teams.",
       icon: creator,
     },
   ];
@@ -110,25 +110,44 @@ import {
   
   const experiences = [
     {
-      title: "React.tsx Developer",
-      company_name: "Markforged",
-      icon: markforged,
+      id: 1,
+      title: "Automations Engineer",
+      company_name: "Allium Engineering",
+      icon: allium,
       iconBg: "#383E56",
-      date: "June 2023 - Current",
+      date: "April 2024 - October 2024",
       points: [
-        "Developing and maintaining React components in Storybook.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Designed, developed, and delivered an end-to-end software application tailored to client specifications, enabling  automated processing of laser sensor data for operators.",
+        "Engineered complex mathematical computations, data visualization, and an intuitive GUI using Python with Poetry.", 
+        "Built robust C++ applications using CMake and vcpkg for seamless controller communication and real-time sensor  data acquisition.", 
+        "Initially utilized pybind11 for integrating Python and C++ but transitioned to Qt for the final product to enhance  functionality and user experience.",
+        "Implemented a scalable database system using PostgreSQL with TimescaleDB to handle high-frequency sensor  data efficiently."
       ],
     },
     {
-      title: "Ignition Developer",
+      id: 2,
+      title: "Front-End Developer",
+      company_name: "Markforged",
+      icon: markforged,
+      iconBg: "#383E56",
+      date: "June 2023 - November 2023",
+      points: [
+        "Designed and implemented user interfaces, ensuring a seamless and visually appealing experience for customers interacting with our cutting-edge 3D printing and additive manufacturing solutions.",
+        "Spearheaded the development and maintenance of React components in Storybook, elevating the user interface  to new levels of functionality and visual appeal.",
+        "Orchestrated seamless collaboration within cross-functional teams, fostering synergy among designers, product  managers, and fellow developers to consistently deliver high-quality products.",
+        "Executed the implementation of responsive design strategies, guaranteeing a flawless user experience across  various devices, and ensured cross-browser compatibility to enhance accessibility and user engagement.",
+        "Played a pivotal role in code reviews, offering constructive feedback to fellow developers, contributing to a culture  of continuous improvement and code excellence.",
+      ],
+    },
+    {
+      id: 3,
+      title: "Software Developer",
       company_name: "Markforged",
       icon: markforged,
       iconBg: "#E6DEDD",
       date: "Sep 2022 - May 2023",
       points: [
+        "Designed, developed, and maintained innovative software solutions that drive the functionality and performance of our advanced 3D printing and additive manufacturing systems, contributing to the ongoing evolution of our industry-leading  technology.",
         "Built applications for manufacturing process control operations and data collection.",
         "Wrote queries with the application to add/update data in SQL database.",
         "Wrote Python scripts to modify the behavior of the application.",
@@ -164,7 +183,7 @@ import {
         },
       ],
       image: portfolio,
-      source_code_link: "https://github.com/LucidApparition/LucidApparition.github.io",
+      sourceCodeLink: "https://github.com/LucidApparition/LucidApparition.github.io",
     },
     {
       name: "DrinkersApp",
@@ -184,7 +203,7 @@ import {
         },
       ],
       image: wireframe,
-      source_code_link: "https://github.com/LucidApparition/DrinkersApp",
+      sourceCodeLink: "https://github.com/LucidApparition/DrinkersApp",
     },
     {
       name: "React Component Library",
@@ -204,7 +223,7 @@ import {
         },
       ],
       image: componentlibrary,
-      source_code_link: "https://github.com/LucidApparition/react-typescript",
+      sourceCodeLink: "https://github.com/LucidApparition/react-typescript",
     },
   ];
   
