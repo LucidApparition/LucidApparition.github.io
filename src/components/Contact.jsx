@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React from 'react'
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { styles } from '../styles';
-import { RobotCanvas } from './canvas';
 import { SectionWrapper } from '../hoc';
 import { slideIn } from '../utils/motion';
 
@@ -112,7 +112,6 @@ function Contact() {
         variants={slideIn('right', 'tween', 0.2, 2)}
         className="xl:flex-1 xl:h-auto md:h-[800px] h-[350px]"
       >
-        <RobotCanvas />
       </motion.div>
     </div>
   );

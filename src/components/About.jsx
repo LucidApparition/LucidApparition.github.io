@@ -1,81 +1,52 @@
-import React from 'react';
+import React from 'react'
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { styles } from '../styles';
 import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';
 import { SectionWrapper } from '../hoc';
-
-// CSS for the tilt effect
-const tiltStyle = {
-  transform: 'rotate(-8deg)',
-};
-
-function ServiceCard({ index, title, icon }) {
-  return (
-    <motion.div
-      variants={fadeIn('right', 'spring', index * 0.5, 0.75)}
-      className="w-full max-w-[200px] green-pink-gradient p-[1px] rounded-[20px] shadow-card"
-    >
-      <div
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className="bg-tertiary rounded-[20px] py-5 px-12 flex justify-evenly items-center flex-col h-[200px]"
-        style={tiltStyle}
-      >
-        <img src={icon} alt={title} className="w-16 h-16 object-contain" />
-        <h3 className="text-white text-[20px] font-bold text-center">
-          {title}
-        </h3>
-      </div>
-    </motion.div>
-  );
-}
-
-ServiceCard.propTypes = {
-  index: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-};
+import ServiceCard from './cards/ServiceCard';
 
 function About() {
   return (
     <>
+      {/* Introduction Section */}
       <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview</h2>
-      </motion.div>
+        <p className={`${styles.sectionSubText} dark:${styles.sectionSubTextDark} text-center`}>Introduction</p>
+        <h1 className={`${styles.sectionHeadText} dark:${styles.sectionHeadTextDark} text-center`}>About Me</h1>
+        </motion.div>
 
-      <motion.p
-        variants={fadeIn('', '', 0.1, 1)}
-        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
+      {/* Body Section */}
+      <motion.div
+        variants={fadeIn('right', 'spring', 1, 2)}
+        className="mt-20 mb-4 rounded-2xl p-6"
+        style={{
+          border: '4px solid rgba(255, 157, 0, 1)', // Red border for emphasis
+          boxShadow: '0 0 20px rgba(255, 157, 0, 1)', // Glow effect
+        }}
       >
-        I&apos;m a skilled software developer with experience in languages like
-        Java, Python, C++, C#, Typescript, and JavaScript.
-        {' '}
-        <br />
-        Frameworks like React, Storybook, and Ignition.
-        {' '}
-        <br />
-        And databases like Firebase and AWS.
-        {' '}
-        <br />
-        I&apos;m a quick learner and collaborate closely with clients to create
-        efficient, scalable, and user-friendly solutions that solve real-world
-        problems.
-        {' '}
-        <br />
-        Let&apos;s work together to bring your ideas to life!
-      </motion.p>
-
-      <div className="mt-20 flex flex-wrap gap-10">
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} title={service.title} icon={service.icon} />
-        ))}
-      </div>
+        <motion.p
+          variants={fadeIn('', '', 1.5, .5)}
+          className="text-secondary dark:text-dark-primary text-[17px] mt-4 ml-4 mr-4 max-w-4xl leading-[30px]"
+        >  
+          I&apos;m a software developer with a diverse background in software 
+          engineering, industrial operations, and project management. 
+          With a Bachelor&apos;s degree in Computer Science 
+          from Rhode Island College and years of hands-on experience, 
+          I&apos;ve built a strong foundation in web development, 
+          database management, and automation technologies.
+        </motion.p>
+        <motion.div 
+          variants={textVariant()}
+        >
+          <p className={`${styles.sectionSubText} dark:${styles.sectionSubTextDark} mt-12 text-center`}>My Career Highlights</p>
+        </motion.div>
+        <div className="mt-12 ml-4 flex flex-wrap gap-4 ">
+          {services.map((service, index) => (
+            <ServiceCard key={service.title} index={index} service={service} />
+          ))}
+        </div>
+      </motion.div>
     </>
   );
 }

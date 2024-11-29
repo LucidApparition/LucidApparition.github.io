@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { navLinks } from '../constants';
@@ -12,7 +11,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 bg-[#7001FF]`}
+      className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 bg-light-bg dark:bg-dark-bg`}
     >
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
         <Link
@@ -24,7 +23,7 @@ function Navbar() {
           }}
         >
           <img src={logo} alt="logo" className="w-14 h-14 object-contain" />
-          <p className="text-white text-[18px] font-bold cursor-pointer flex">
+          <p className="text-primary text-[18px] font-bold cursor-pointer flex">
             Jeffery&nbsp;
             <span className="sm:block hidden">| Grafe</span>
           </p>
@@ -35,7 +34,7 @@ function Navbar() {
             <li
               key={link.id}
               className={`${
-                active === link.title ? 'text-white' : 'text-secondary'
+                active === link.title ? 'text-white' : 'text-tertiary'
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => {
                 setActive(link.title);
@@ -64,7 +63,7 @@ function Navbar() {
                 <li
                   key={link.id}
                   className={`${
-                    active === link.title ? 'text-white' : 'text-secondary'
+                    active === link.title ? 'text-white' : 'text-tertiary'
                   } font-poppins font-medium cursor-pointer text-[16px]`}
                   onClick={() => {
                     setToggle(!toggle);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { Html, useProgress } from '@react-three/drei';
 
 function Loader() {
