@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "LucidApparition/LucidApparition.github.io",
+  "pipelineDirectory": "LucidApparition.github.io",
+  "workspaceDirectory": "LucidApparition.github.io\\LucidApparition.github.io",
+  "repositories": {
+    "LucidApparition/LucidApparition.github.io": {
+      "repositoryPath": "LucidApparition.github.io\\LucidApparition.github.io",
+      "lastRunOn": "12/13/2023 17:36:55 -05:00"
+    }
+  },
+  "lastRunOn": "12/13/2023 17:36:55 -05:00"
+}

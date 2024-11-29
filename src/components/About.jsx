@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 import { styles } from '../styles';
 import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';

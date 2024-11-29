@@ -1,6 +1,7 @@
 // Works.jsx
 import React from 'react'
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 import { styles } from '../styles';
 import { projects } from '../constants';
 import { SectionWrapper } from '../hoc';

@@ -1,3 +1,4 @@
-import SectionWrapper from "./SectionWrapper";
+import SectionWrapper from './SectionWrapper';
 
-export { SectionWrapper }
+// eslint-disable-next-line import/prefer-default-export
+export { SectionWrapper };
