@@ -1,4 +1,3 @@
-# NEEED TO FIX
 name: PR Generator
 
 on:
@@ -21,7 +20,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -35,26 +34,22 @@ jobs:
         run: npm run build
 
       - name: Check For Specific Conditions and Label Accordingly
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          changed_files=$(git --no-pager diff --name-only ${{ github.sha }})
+          changed_files=$(git diff --name-only HEAD^ HEAD)
 
-          # Example: If the PR modifies a file in the "docs" folder, add a "Documentation" label
           if echo "$changed_files" | grep -q '^docs/'; then
             echo "Adding Documentation label"
-            gh pr label add -l "Documentation"
+            gh pr edit --add-label "Documentation"
           fi
 
-          # Example: If the PR modifies a file in the "frontend" folder, add a "Frontend" label
           if echo "$changed_files" | grep -q '^frontend/'; then
             echo "Adding Frontend label"
-            gh pr label add -l "Frontend"
+            gh pr edit --add-label "Frontend"
           fi
 
-          # You can add more conditions based on your project structure and requirements
-          # Additional debugging output
           echo "Changed Files: $changed_files"
-          echo "GitHub Ref: ${GITHUB_REF}"
-          echo "GitHub SHA: ${GITHUB_SHA}"
 
       - name: Check Python and Pip Versions
         run: |
@@ -65,71 +60,58 @@ jobs:
         run: |
           pip3 install nltk
 
-      - name: Create Title With Commit Message
+      - name: Generate PR Title From Commit Message
         run: |
           # Get latest commit message
           commit_message=$(git log --format=%B -n 1)
 
           # Extract important words using nltk
-          pr_title=$(python3 - << E0F
+          pr_title=$(python3 - << EOF
           import nltk
           from nltk.corpus import stopwords
           from nltk.tokenize import word_tokenize
 
-          # Download NLTK data
           nltk.download('punkt')
           nltk.download('stopwords')
 
-          # Tokenize and remove stop words from the commit message
-          commit_message = "$commit_message"
+          commit_message = """${commit_message}"""
           words = word_tokenize(commit_message)
-          pr_title = [word.lower() for word in words if word.isalpha() and word.lower() not in stopwords.words('english')]
-
-          # Output pr_title
-          print ("PR Title: $pr_title")
-          E0F
-          )
-
-      - name: Create Pull Request
-        run: |
-          # Get the latest commit message
-          commit_message=$(git log --format=%B -n 1)
-
-          # Set the committer's name and email
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-
-          # Read the content of prTemplate.md file
-          pr_body=$(cat .github/prTemplate.md)
-
-          # Determine the target branch (default to 'development' if not available)
-          target_branch=${GITHUB_REF#refs/heads/}
-          target_branch=${target_branch:-development}
-
-          # Make the API request to create a pull request
-          response=$(curl -s -X POST \
-            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-            -d @- \
-            "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls" <<EOF
-              {
-                "title": "$pr_title",
-                "body": "$pr_body",
-                "head": "${target_branch}",
-                "base": "master"
-              }
+          filtered_words = [word for word in words if word.isalnum() and word.lower() not in stopwords.words('english')]
+          print(' '.join(filtered_words))
           EOF
           )
 
-          # Echo full response for debugging
-          echo "Full API Response: $response"
-
-          # Extract information from the response
-          pr_url=$(echo "$response" | jq -r .html_url)
-
-          # Echo individual pieces of information
-          echo "PR URL: $pr_url"
           echo "PR Title: $pr_title"
-          echo "PR Body: $pr_body"
-          echo "Pull Request created: $pr_url"
+          echo "PR_TITLE=$pr_title" >> $GITHUB_ENV
+
+      - name: Create Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          # Read the PR template content
+          pr_body=$(cat .github/prTemplate.md)
+
+          # Extract current branch
+          current_branch=${GITHUB_REF#refs/heads/}
+
+          # Create the pull request
+          response=$(curl -s -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d @- \
+            https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls <<EOF
+          {
+            "title": "${{ env.PR_TITLE }}",
+            "body": "$pr_body",
+            "head": "$current_branch",
+            "base": "master"
+          }
+          EOF
+          )
+
+          # Debugging: Output the response
+          echo "Full Response: $response"
+
+          # Extract and display PR URL
+          pr_url=$(echo "$response" | jq -r '.html_url')
+          echo "Pull Request created: $pr_url"
