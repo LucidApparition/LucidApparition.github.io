@@ -1,20 +1,17 @@
----
-name: Pull Request
-about: Describe the changes you're proposing
----
-
 ## Description
 
-[Provide a brief description of the changes.]
+<!-- Describe the changes introduced by this pull request -->
 
 ## Related Issues
 
-[Reference any related issues here.]
+<!-- Mention any related issues here -->
+
+## Testing Instructions
+
+<!-- Provide instructions on how to test the changes -->
 
 ## Checklist
 
-- [ ] I have read the contribution guidelines.
-- [ ] I have tested my changes locally.
-- [ ] I have added appropriate labels.
-
-Assignees: @{{ github.actor }}
+- [ ] I have tested these changes locally.
+- [ ] I have updated the documentation accordingly.
+- [ ] I have added unit tests (if applicable).

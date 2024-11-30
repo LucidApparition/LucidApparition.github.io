@@ -12,10 +12,10 @@ function Experience() {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-center`}>
+        <p className={`${styles.sectionSubText} dark:${styles.sectionSubTextDark} text-center`}>
           What I have done so far
         </p>
-        <h2 className={`${styles.sectionHeadText} text-center`}>
+        <h2 className={`${styles.sectionHeadText} dark:${styles.sectionHeadTextDark} text-center`}>
           Work Experience
         </h2>
       </motion.div>
