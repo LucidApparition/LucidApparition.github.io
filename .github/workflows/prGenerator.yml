@@ -1,135 +1,34 @@
-# NEEED TO FIX
-name: PR Generator
+name: Auto-fill PR Description
 
 on:
-  push:
-    branches:
-      - 'development'
+  pull_request:
+    types: [opened]
 
 jobs:
-  Auto-PR:
+  auto_fill_description:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Debug
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read PR template
+        id: read_template
         run: |
-          echo "Start time: $(date)"
-          echo "Debug information"
-          env
-          echo "End time: $(date)"
+          TEMPLATE_CONTENT=$(cat .github/PULL_REQUEST_TEMPLATE.md)
+          # Replace the @{{ github.actor }} placeholder with the actual actor dynamically
+          TEMPLATE_CONTENT="${TEMPLATE_CONTENT//@{{ github.actor }}/@${{ github.actor }}}"
+          echo "TEMPLATE<<EOF" >> $GITHUB_ENV
+          echo "$TEMPLATE_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Check For Specific Conditions and Label Accordingly
-        run: |
-          changed_files=$(git --no-pager diff --name-only ${{ github.sha }})
-
-          # Example: If the PR modifies a file in the "docs" folder, add a "Documentation" label
-          if echo "$changed_files" | grep -q '^docs/'; then
-            echo "Adding Documentation label"
-            gh pr label add -l "Documentation"
-          fi
-
-          # Example: If the PR modifies a file in the "frontend" folder, add a "Frontend" label
-          if echo "$changed_files" | grep -q '^frontend/'; then
-            echo "Adding Frontend label"
-            gh pr label add -l "Frontend"
-          fi
-
-          # You can add more conditions based on your project structure and requirements
-          # Additional debugging output
-          echo "Changed Files: $changed_files"
-          echo "GitHub Ref: ${GITHUB_REF}"
-          echo "GitHub SHA: ${GITHUB_SHA}"
-
-      - name: Check Python and Pip Versions
-        run: |
-          python3 --version
-          pip3 --version
-
-      - name: Install nltk
-        run: |
-          pip3 install nltk
-
-      - name: Create Title With Commit Message
-        run: |
-          # Get latest commit message
-          commit_message=$(git log --format=%B -n 1)
-
-          # Extract important words using nltk
-          pr_title=$(python3 - << E0F
-          import nltk
-          from nltk.corpus import stopwords
-          from nltk.tokenize import word_tokenize
-
-          # Download NLTK data
-          nltk.download('punkt')
-          nltk.download('stopwords')
-
-          # Tokenize and remove stop words from the commit message
-          commit_message = "$commit_message"
-          words = word_tokenize(commit_message)
-          pr_title = [word.lower() for word in words if word.isalpha() and word.lower() not in stopwords.words('english')]
-
-          # Output pr_title
-          print ("PR Title: $pr_title")
-          E0F
-          )
-
-      - name: Create Pull Request
-        run: |
-          # Get the latest commit message
-          commit_message=$(git log --format=%B -n 1)
-
-          # Set the committer's name and email
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-
-          # Read the content of prTemplate.md file
-          pr_body=$(cat .github/prTemplate.md)
-
-          # Determine the target branch (default to 'development' if not available)
-          target_branch=${GITHUB_REF#refs/heads/}
-          target_branch=${target_branch:-development}
-
-          # Make the API request to create a pull request
-          response=$(curl -s -X POST \
-            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-            -d @- \
-            "https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls" <<EOF
-              {
-                "title": "$pr_title",
-                "body": "$pr_body",
-                "head": "${target_branch}",
-                "base": "master"
-              }
-          EOF
-          )
-
-          # Echo full response for debugging
-          echo "Full API Response: $response"
-
-          # Extract information from the response
-          pr_url=$(echo "$response" | jq -r .html_url)
-
-          # Echo individual pieces of information
-          echo "PR URL: $pr_url"
-          echo "PR Title: $pr_title"
-          echo "PR Body: $pr_body"
-          echo "Pull Request created: $pr_url"
+      - name: Auto-fill PR Description
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
+          DESCRIPTION=$(grep -A 1000 "TEMPLATE" $GITHUB_ENV | tail -n +2)
+          curl -X PATCH \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -d "{\"body\": \"$DESCRIPTION\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER"
