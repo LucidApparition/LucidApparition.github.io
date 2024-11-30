@@ -1,117 +1,32 @@
-name: PR Generator
+name: Auto-fill PR Description
 
 on:
-  push:
-    branches:
-      - 'development'
+  pull_request:
+    types: [opened]
 
 jobs:
-  Auto-PR:
+  auto_fill_description:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Debug
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read PR template
+        id: read_template
         run: |
-          echo "Start time: $(date)"
-          echo "Debug information"
-          env
-          echo "End time: $(date)"
+          TEMPLATE_CONTENT=$(cat .github/prTemplate.md)
+          echo "TEMPLATE<<EOF" >> $GITHUB_ENV
+          echo "$TEMPLATE_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Check For Specific Conditions and Label Accordingly
+      - name: Auto-fill PR Description
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          changed_files=$(git diff --name-only HEAD^ HEAD)
-
-          if echo "$changed_files" | grep -q '^docs/'; then
-            echo "Adding Documentation label"
-            gh pr edit --add-label "Documentation"
-          fi
-
-          if echo "$changed_files" | grep -q '^frontend/'; then
-            echo "Adding Frontend label"
-            gh pr edit --add-label "Frontend"
-          fi
-
-          echo "Changed Files: $changed_files"
-
-      - name: Check Python and Pip Versions
-        run: |
-          python3 --version
-          pip3 --version
-
-      - name: Install nltk
-        run: |
-          pip3 install nltk
-
-      - name: Generate PR Title From Commit Message
-        run: |
-          # Get latest commit message
-          commit_message=$(git log --format=%B -n 1)
-
-          # Extract important words using nltk
-          pr_title=$(python3 - << EOF
-          import nltk
-          from nltk.corpus import stopwords
-          from nltk.tokenize import word_tokenize
-
-          nltk.download('punkt')
-          nltk.download('stopwords')
-
-          commit_message = """${commit_message}"""
-          words = word_tokenize(commit_message)
-          filtered_words = [word for word in words if word.isalnum() and word.lower() not in stopwords.words('english')]
-          print(' '.join(filtered_words))
-          EOF
-          )
-
-          echo "PR Title: $pr_title"
-          echo "PR_TITLE=$pr_title" >> $GITHUB_ENV
-
-      - name: Create Pull Request
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          # Read the PR template content
-          pr_body=$(cat .github/prTemplate.md)
-
-          # Extract current branch
-          current_branch=${GITHUB_REF#refs/heads/}
-
-          # Create the pull request
-          response=$(curl -s -X POST \
+          PR_NUMBER=$(jq -r .pull_request.number "$GITHUB_EVENT_PATH")
+          DESCRIPTION=$(grep -A 1000 "TEMPLATE" $GITHUB_ENV | tail -n +2)
+          curl -X PATCH \
+            -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: Bearer $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d @- \
-            https://api.github.com/repos/LucidApparition/LucidApparition.github.io/pulls <<EOF
-          {
-            "title": "${{ env.PR_TITLE }}",
-            "body": "$pr_body",
-            "head": "$current_branch",
-            "base": "master"
-          }
-          EOF
-          )
-
-          # Debugging: Output the response
-          echo "Full Response: $response"
-
-          # Extract and display PR URL
-          pr_url=$(echo "$response" | jq -r '.html_url')
-          echo "Pull Request created: $pr_url"
+            -d "{\"body\": \"$DESCRIPTION\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER"
