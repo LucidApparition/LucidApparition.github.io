@@ -21,7 +21,7 @@ import {
     wireframe,
     componentlibrary,
 
-  } from "../../public/assets";
+  } from "../../assets";
   
   export const navLinks = [
     {
