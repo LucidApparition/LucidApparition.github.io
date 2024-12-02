@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Ensure you are including all relevant file types.
+    "./src/**/*.{html,js,jsx,ts,tsx}", // Ensure you are including all relevant file types.
   ],
   mode: "jit", // Just-in-time mode for better performance
   darkMode: 'media', // Enable dark mode based on user's system preference
@@ -61,6 +61,5 @@ module.exports = {
     require('@tailwindcss/typography'), // For rich text styles like blog posts
     require('@tailwindcss/forms'), // For styling form elements
     require('@tailwindcss/aspect-ratio'), // For aspect ratio utilities
-    require('@tailwindcss/line-clamp'), // For limiting lines of text
   ],
 };
