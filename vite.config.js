@@ -6,6 +6,11 @@ export default defineConfig({
     include: ['@react-three/drei', '@react-three/fiber', 'three'], // Add any other problematic dependencies here
     exclude: ['js-big-decimal'],
   },
+  build: {
+    rollupOptions: {
+      input: './index.html',
+    },
+  },
   resolve: {
     extensions: [
       '.js',
@@ -16,6 +21,9 @@ export default defineConfig({
       '.tsx',
       '.vue',
     ],
+    alias: {
+      '@': '/src',
+    },
   },
   plugins: [react()],
   server: {
