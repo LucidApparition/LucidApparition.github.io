@@ -3,7 +3,7 @@ import React from 'react'
 import { Tilt } from 'react-tilt';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { github } from '../../../assets'; // Assuming github is an image asset in your assets folder
+import { github } from '../../../public/assets'; // Assuming github is an image asset in your assets folder
 import { fadeIn } from '../../utils/motion'; // Import fadeIn animation
 
 function ProjectCard({

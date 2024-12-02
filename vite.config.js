@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  base: '/',
   optimizeDeps: {
     include: ['@react-three/drei', '@react-three/fiber', 'three'], // Add any other problematic dependencies here
     exclude: ['js-big-decimal'],
@@ -29,5 +30,4 @@ export default defineConfig({
   server: {
     port: 8000
   },
-  base: './',
 });
