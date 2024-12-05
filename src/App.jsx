@@ -14,7 +14,7 @@ import {
 function App() {
   return (
     <BrowserRouter>
-      <div className="relative z-0 bg-light-bg dark:bg-dark-primary">
+      <div className="relative z-0 bg-light-bg dark:bg-dark-bg">
         <div className="bg-cover bg-nmo-repeat bg-center">
           <Navbar />
           <Hero />

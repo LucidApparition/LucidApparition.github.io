@@ -21,7 +21,7 @@ import {
     wireframe,
     componentlibrary,
 
-  } from "../../public/assets";
+  } from '../assets';
   
   export const navLinks = [
     {
@@ -57,7 +57,7 @@ import {
     },
   ];
   
-  const technologies = [
+  const languages = [
     {
       name: "java",
       icon: java,
@@ -82,6 +82,9 @@ import {
       name: "c#",
       icon: csharp,
     },
+  ];
+
+  const frameworks = [
     {
       name: "react JS",
       icon: reactjs,
@@ -90,10 +93,16 @@ import {
       name: "storybook JS",
       icon: storybook,
     },
+  ];
+
+  const automation = [
     {
       name: "ignition",
       icon: ignition,
     },
+  ];
+
+  const cloud = [
     {
       name: "firebase",
       icon: firebase,
@@ -102,6 +111,9 @@ import {
       name: "aws",
       icon: aws,
     },
+  ];
+
+  const vc = [
     {
       name: "git",
       icon: git,
@@ -227,4 +239,4 @@ import {
     },
   ];
   
-  export { services, technologies, experiences, projects };
+  export { services, languages, frameworks, automation, cloud, vc, experiences, projects };

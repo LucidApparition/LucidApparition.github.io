@@ -54,7 +54,11 @@ function Contact() {
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
       <motion.div
         variants={slideIn('left', 'tween', 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
+        className="mt-20 mb-4 rounded-2xl p-6"
+        style={{
+          border: '4px solid rgba(255, 157, 0, 1)', // Red border for emphasis
+          boxShadow: '0 0 20px rgba(255, 157, 0, 1)', // Glow effect
+        }}
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
