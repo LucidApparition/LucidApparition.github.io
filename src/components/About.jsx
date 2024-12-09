@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion';
-import PropTypes from 'prop-types';
 import { styles } from '../styles';
 import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';
@@ -21,8 +20,8 @@ function About() {
         variants={fadeIn('right', 'spring', 1, 2)}
         className="mt-20 mb-4 rounded-2xl p-6"
         style={{
-          border: '4px solid rgba(255, 157, 0, 1)', // Red border for emphasis
-          boxShadow: '0 0 20px rgba(255, 157, 0, 1)', // Glow effect
+          border: '4px solid rgba(255, 165, 0, 1)',
+          boxShadow: '0 0 20px rgba(255, 165, 0, 1)',
         }}
       >
         <motion.div

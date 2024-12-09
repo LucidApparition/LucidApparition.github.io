@@ -26,8 +26,8 @@ function Hero() {
           <motion.div
             className="mb-4 rounded-2xl p-6"
             style={{
-              border: '4px solid rgba(232, 90, 90, 1)', // Red border for emphasis
-              boxShadow: '0 0 20px rgba(232, 90, 90, 1)', // Glow effect
+              border: '4px solid rgba(255, 0, 0, 1)', // Red border for emphasis
+              boxShadow: '0 0 20px rgba(255, 0, 0, 1)', // Glow effect
             }}
             variants={randomVariant}
             initial="initial"

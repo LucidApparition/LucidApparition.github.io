@@ -3,8 +3,8 @@ import React from 'react'
 import { Tilt } from 'react-tilt';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { github } from '../../assets'; // Assuming github is an image asset in your assets folder
-import { fadeIn } from '../../utils/motion'; // Import fadeIn animation
+import { github } from '../../assets';
+import { fadeIn } from '../../utils/motion';
 
 function ProjectCard({
   index,
@@ -24,16 +24,16 @@ function ProjectCard({
           speed: 450,
         }}
         style={{ 
-          border: '4px solid rgba(0, 100, 224, 1)',
-          boxShadow: '0 0 20px rgba(0, 100, 224, 1)',
+          border: '4px solid rgba(0, 0, 255, 1)',
+          boxShadow: '0 0 20px rgba(0, 0, 255, 1)',
         }}
-        className="bg-dark-secondary pb-2 rounded-2xl sm:w-[360px] w-full"
+        className="bg-dark-secondary pb-2 rounded-2xl sm:w-[225px] w-full"
       >
-        <div className="relative w-full h-full">
+        <div className="relative w-flex h-flex">
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover rounded-t-xl"
+            className="w-flex h-flex object-cover rounded-t-xl"
           />
           <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
             <div

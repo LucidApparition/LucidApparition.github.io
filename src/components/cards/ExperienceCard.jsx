@@ -18,8 +18,8 @@ function ExperienceCard({ experience }) {
       transitionSpeed={450}
       className="mb-4 text-black dark:text-white rounded-2xl p-6"
       style={{ 
-        border: '4px solid rgba(255, 215, 0, 1)',
-        boxShadow: '0 0 20px rgba(255, 215, 0, 1)',
+        border: '4px solid rgba(255, 255, 0, 1)',
+        boxShadow: '0 0 20px rgba(255, 255, 0, 1)',
       }}
       >
         <VerticalTimelineElement

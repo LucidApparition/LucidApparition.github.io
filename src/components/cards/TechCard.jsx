@@ -11,8 +11,8 @@ function TechCard({ technology, index }) {
             className="w-28 h-28 rounded-full flex items-center justify-center shadow-lg hover:shadow-2xl transition-shadow duration-300"
             style={{
                 background: 'linear-gradient(145deg, #1b1b1b, #8b8b8b)',
-                border: '4px solid rgba(0, 100, 0, 1)',
-                boxShadow: '0 0 20px rgba(0, 100, 0, 1)',
+                border: '4px solid rgba(0, 255, 0, 1)',
+                boxShadow: '0 0 20px rgba(0, 255, 0, 1)',
             }}
         >
             <Tilt
