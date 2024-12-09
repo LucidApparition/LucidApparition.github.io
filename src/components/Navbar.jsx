@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styles } from '../styles';
 import { navLinks } from '../constants';
-import { logo, menu, close } from '../../public/assets';
+import { logo } from '../assets';
+import CloseIcon from './icons/closeIcon';
+import MenuIcon from './icons/menuIcon';
 
 function Navbar() {
   const [active, setActive] = useState('');
@@ -23,7 +25,7 @@ function Navbar() {
           }}
         >
           <img src={logo} alt="logo" className="w-14 h-14 object-contain" />
-          <p className="text-primary text-[18px] font-bold cursor-pointer flex">
+          <p className="text-primary dark:text-dark-primary text-[18px] font-bold cursor-pointer flex">
             Jeffery&nbsp;
             <span className="sm:block hidden">| Grafe</span>
           </p>
@@ -34,8 +36,8 @@ function Navbar() {
             <li
               key={link.id}
               className={`${
-                active === link.title ? 'text-white' : 'text-tertiary'
-              } hover:text-white text-[18px] font-medium cursor-pointer`}
+                active === link.title ? 'text-primary dark:text-dark-primary' : 'text-tertiary dark:text-dark-tertiary'
+              } hover:text-secondary dark:hover:text-dark-secondary text-[18px] font-medium cursor-pointer`}
               onClick={() => {
                 setActive(link.title);
               }}
@@ -46,24 +48,25 @@ function Navbar() {
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
-          <img
-            src={toggle ? close : menu}
-            alt="menu"
-            className="w-[28px] h-[28px] object-contain cursor-pointer"
-            onClick={() => setToggle(!toggle)}
-          />
+          <div onClick={() => setToggle(!toggle)} className="cursor-pointer">
+            {toggle ? (
+              <CloseIcon className="text-primary dark:text-dark-secondary w-[28px] h-[28px] object-contain" />
+            ) : (
+              <MenuIcon className="text-primary dark:text-dark-secondary w-[28px] h-[28px] object-contain" />
+            )}
+          </div>
 
           <div
             className={`${
               !toggle ? 'hidden' : 'flex'
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 bg-light5 dark:bg-dark-tetradic absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl border border-primary dark:border-dark-primary`}
           >
             <ul className="list-none flex justify-end items-start flex-col gap-4">
               {navLinks.map((link) => (
                 <li
                   key={link.id}
                   className={`${
-                    active === link.title ? 'text-white' : 'text-tertiary'
+                    active === link.title ? 'text-primary dark:text-dark-primary' : 'text-tertiary dark:text-dark-tertiary'
                   } font-poppins font-medium cursor-pointer text-[16px]`}
                   onClick={() => {
                     setToggle(!toggle);

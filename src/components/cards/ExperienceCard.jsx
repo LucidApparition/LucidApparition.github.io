@@ -18,20 +18,20 @@ function ExperienceCard({ experience }) {
       transitionSpeed={450}
       className="mb-4 text-black dark:text-white rounded-2xl p-6"
       style={{ 
-        border: '4px solid rgba(255, 215, 0, 1)',
-        boxShadow: '0 0 20px rgba(255, 215, 0, 1)',
+        border: '4px solid rgba(255, 255, 0, 1)',
+        boxShadow: '0 0 20px rgba(255, 255, 0, 1)',
       }}
       >
         <VerticalTimelineElement
-          contentStyle={{ background: 'transparent', color: '#fff', boxShadow: 'none' }}
+          className='text-primary dark:text-dark-primary'
+          contentStyle={{ background: 'transparent', color: 'currentColor', boxShadow: 'none' }}
           contentArrowStyle={{ display: 'none' }}
-          date={experience.date}
           iconStyle={{ 
             background: experience.iconBg,
             width: '100px',
             height: '100px',
             borderRadius: '50%', 
-            border: '2px solid #fff', 
+            border: '2px solid currentColor', 
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -46,25 +46,31 @@ function ExperienceCard({ experience }) {
             </div>
           )}
         >
-          <div className="flex flex-row items-center gap-x-4 mb-4">
-          <h3 className="text-black dark:text-white text-[24px] font-bold">{experience.title}</h3>
+          <div className="flex flex-row items-center gap-x-4 mb-4 mt-4">
+          <h3 className="text-black dark:text-dark-primary text-[24px] font-bold">{experience.title}</h3>
             <p
-              className="text-secondary dark:text-white text-[16px] font-semibold"
+              className="text-secondary dark:text-dark-tertiary text-[16px] font-semibold"
               style={{ margin: 0 }}
             >
               {experience.company_name}
             </p>
           </div>
-          <ul className="mt-5 list-disc ml-5 space-y-2">
+          <ul className="mt-5 mb-5 list-disc ml-5 space-y-2">
             {experience.points.map((point, index) => (
               <li
                 key={`experience-${index}`}
-                className="text-black dark:text-white text-[14px] pl-1 tracking-wider"
+                className="text-black dark:text-dark-primary text-[14px] pl-1 tracking-wider"
               >
                 {point}
               </li>
             ))}
           </ul>
+          <p
+            className="text-secondary dark:text-dark-secondary text-[14px] font-semibold"
+            style={{ margin: 0 }}
+          >
+            {experience.date}
+          </p>
         </VerticalTimelineElement>
       </Tilt>
     </motion.div>

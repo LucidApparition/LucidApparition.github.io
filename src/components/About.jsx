@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion';
-import PropTypes from 'prop-types';
 import { styles } from '../styles';
 import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';
@@ -12,8 +11,8 @@ function About() {
     <>
       {/* Introduction Section */}
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} dark:${styles.sectionSubTextDark} text-center`}>Introduction</p>
-        <h1 className={`${styles.sectionHeadText} dark:${styles.sectionHeadTextDark} text-center`}>About Me</h1>
+        <p className={`${styles.sectionSubText} text-center`}>Introduction</p>
+        <h1 className={`${styles.sectionHeadText} text-center`}>About Me</h1>
         </motion.div>
 
       {/* Body Section */}
@@ -21,11 +20,11 @@ function About() {
         variants={fadeIn('right', 'spring', 1, 2)}
         className="mt-20 mb-4 rounded-2xl p-6"
         style={{
-          border: '4px solid rgba(255, 157, 0, 1)', // Red border for emphasis
-          boxShadow: '0 0 20px rgba(255, 157, 0, 1)', // Glow effect
+          border: '4px solid rgba(255, 165, 0, 1)',
+          boxShadow: '0 0 20px rgba(255, 165, 0, 1)',
         }}
       >
-        <motion.p
+        <motion.div
           variants={fadeIn('', '', 1.5, .5)}
           className="text-secondary dark:text-dark-primary text-[17px] mt-4 ml-4 mr-4 max-w-4xl leading-[30px]"
         >  
@@ -35,11 +34,11 @@ function About() {
           from Rhode Island College and years of hands-on experience, 
           I&apos;ve built a strong foundation in web development, 
           database management, and automation technologies.
-        </motion.p>
+        </motion.div>
         <motion.div 
           variants={textVariant()}
         >
-          <p className={`${styles.sectionSubText} dark:${styles.sectionSubTextDark} mt-12 text-center`}>My Career Highlights</p>
+          <p className={`${styles.sectionSubText} mt-12 text-center`}>My Career Highlights</p>
         </motion.div>
         <div className="mt-12 ml-4 flex flex-wrap gap-4 ">
           {services.map((service, index) => (

@@ -28,6 +28,10 @@ import wireframe from './wireframe.png';
 import drinkers from './drinkers.png';
 import componentlibrary from './componentlibrary.png';
 
+import resumeIcon from './resume.png';
+import resume from './documents/Resume.pdf';
+import linkedin from './linkedin.png';
+
 export {
   logo,
   backend,
@@ -55,4 +59,7 @@ export {
   drinkers,
   wireframe,
   componentlibrary,
+  resumeIcon,
+  resume,
+  linkedin,
 };
